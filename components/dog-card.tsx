@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Dog } from "@/lib/definitions";
 import { Heart } from "lucide-react";
+import { Skeleton } from "./ui/skeleton";
 
 export function DogCard(dogProps: Dog) {
   return (
@@ -27,6 +28,23 @@ export function DogCard(dogProps: Dog) {
           <p className="text-sm text-gray-500">
             {dogProps.breed} | Age: {dogProps.age}
           </p>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-end"></CardFooter>
+    </Card>
+  );
+}
+
+export function DogCardSkeleton() {
+  return (
+    <Card className="w-[210px] h-[339px] overflow-hidden p-0">
+      <CardContent className="grid p-0">
+        <div className="relative">
+          <Skeleton className="w-full h-[200px] object-cover rounded-none" />
+        </div>
+        <div className="flex flex-col items-center pt-6 p-4 space-y-4">
+          <Skeleton className="h-5 w-[100px]" />
+          <Skeleton className="h-4 w-[120px]" />
         </div>
       </CardContent>
       <CardFooter className="flex justify-end"></CardFooter>

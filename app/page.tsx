@@ -12,7 +12,6 @@ export default async function Home(props: {
     page?: string;
   }>;
 }) {
-  // const [dogs, setDogs] = useState<Dog[]>([]);
   const searchParams = await props.searchParams;
   const currentPage = Number(searchParams?.page) || 1;
 
