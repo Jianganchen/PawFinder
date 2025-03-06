@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { DogResults } from "@/components/dog-results";
 
 export default async function Home(props: {

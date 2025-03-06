@@ -29,7 +29,7 @@ export function DogResults({ currentPage }: { currentPage: number }) {
     };
 
     fetchDogs();
-  }, [router]);
+  }, [router, currentPage]);
   return (
     <div>
       {dogs.map((dog: Dog, index: number) => (

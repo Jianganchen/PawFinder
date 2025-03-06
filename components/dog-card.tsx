@@ -17,11 +17,13 @@ export function DogCard(dogProps: Dog) {
         <CardDescription>age: {dogProps.age}</CardDescription>
       </CardHeader>
       <CardContent>
-        <img
-          src={dogProps.img}
-          alt={dogProps.name}
-          className="w-full h-[200px] object-cover rounded-lg"
-        />
+        <div>
+          <img
+            src={dogProps.img}
+            alt={dogProps.name}
+            className="w-full h-[200px] object-cover rounded-lg"
+          />
+        </div>
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button variant="outline">Adopt</Button>
