@@ -155,7 +155,9 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { providerUser } = useUser();
 
-  if (!providerUser) return;
+  const displayUser = providerUser
+    ? { ...providerUser, avatar: "https://avatar.iran.liara.run/public" }
+    : data.user;
 
   return (
     <Sidebar {...props}>
@@ -183,12 +185,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="p-1">
-          <NavUser
-            user={{
-              ...providerUser,
-              avatar: "https://avatar.iran.liara.run/public",
-            }}
-          />
+          <NavUser user={displayUser} />
         </div>
       </SidebarFooter>
       <SidebarRail />
