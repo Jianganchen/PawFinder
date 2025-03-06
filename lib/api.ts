@@ -24,12 +24,18 @@ export async function loginUser(name: string, email: string) {
 }
 
 // ** GET /dogs/search?from={pageNumber} **
+// To save the trouble of finding the response.next and response.prev
+// Here I just calculate the "from" value using pageNumber:
+// from = (pageNumber - 1) * 25
 export async function getAllDogsByPageNumber(pageNumber: number) {
   try {
-    const res = await fetch(`${BASE_URL}/dogs/search?from=${pageNumber}`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${BASE_URL}/dogs/search?from=${(pageNumber - 1) * 25}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
 
     if (!res.ok) throw new Error("Not Authenticated");
 
