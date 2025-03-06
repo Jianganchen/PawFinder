@@ -26,19 +26,28 @@ export function PaginationRow() {
     <div>
       <Pagination>
         <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href={createPageURL(currentPage - 1)} />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">{currentPage - 1}</PaginationLink>
-          </PaginationItem>
+          {currentPage !== 1 ? (
+            <>
+              <PaginationItem>
+                <PaginationPrevious href={createPageURL(currentPage - 1)} />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href={createPageURL(currentPage - 1)}>
+                  {currentPage - 1}
+                </PaginationLink>
+              </PaginationItem>
+            </>
+          ) : null}
+
           <PaginationItem>
             <PaginationLink href="#" isActive>
               {currentPage}
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#">{currentPage + 1}</PaginationLink>
+            <PaginationLink href={createPageURL(currentPage + 1)}>
+              {currentPage + 1}
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
