@@ -20,7 +20,7 @@ const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "https://avatar.iran.liara.run/public",
   },
   navMain: [
     {
