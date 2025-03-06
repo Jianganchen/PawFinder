@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Dog } from "@/lib/definitions";
-import { useEffect, useState } from "react";
+// import { Dog } from "@/lib/definitions";
+import { useEffect } from "react";
 import { getAllDogs } from "@/lib/api";
 
 export default function Home() {
