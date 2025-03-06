@@ -1,33 +1,20 @@
-"use client";
-
 import { useRouter } from "next/navigation";
-// import { Dog } from "@/lib/definitions";
 import { useEffect } from "react";
-import { getAllDogs } from "@/lib/api";
+import { DogResults } from "@/components/dog-results";
 
-export default function Home() {
-  const router = useRouter();
+export default async function Home(props: {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+}) {
   // const [dogs, setDogs] = useState<Dog[]>([]);
-
-  useEffect(() => {
-    const fetchDogs = async () => {
-      try {
-        const data = await getAllDogs();
-        if (!data) throw new Error("Not Authenticated");
-        console.log(data);
-        // setDogs(data);
-      } catch (error) {
-        console.log(error);
-        router.push("/login");
-      }
-    };
-
-    fetchDogs();
-  }, [router]);
+  const searchParams = await props.searchParams;
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <div>
       <h2>This is Home page</h2>
+      <DogResults currentPage={currentPage} />
     </div>
   );
 }

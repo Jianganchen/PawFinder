@@ -16,3 +16,11 @@ export interface Dog {
   zip_code: string;
   breed: string;
 }
+
+// Search Return Type
+export interface SearchResult {
+  resultIds: string[];
+  next?: string;
+  prev?: string;
+  total: number;
+}

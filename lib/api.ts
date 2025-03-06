@@ -21,10 +21,10 @@ export async function loginUser(name: string, email: string) {
   }
 }
 
-// ** GET /dogs **
-export async function getAllDogs() {
+// ** GET /dogs/search?from={pageNumber} **
+export async function getAllDogsByPageNumber(pageNumber: number) {
   try {
-    const res = await fetch(`${BASE_URL}/dogs/search`, {
+    const res = await fetch(`${BASE_URL}/dogs/search?from=${pageNumber}`, {
       method: "GET",
       credentials: "include",
     });
@@ -34,6 +34,27 @@ export async function getAllDogs() {
     return res.json();
   } catch (error) {
     console.error("Error Fetching dogs:", error);
+    return null;
+  }
+}
+
+// ** POST /dogs **
+export async function getDogsById(IDs: string[]) {
+  try {
+    const res = await fetch(`${BASE_URL}/dogs`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(IDs),
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("get Dogs by id failed");
+
+    return res;
+  } catch (error) {
+    console.error("Error getting dogs:", error);
     return null;
   }
 }
