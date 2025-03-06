@@ -5,7 +5,7 @@ import { Heart } from "lucide-react";
 
 export function DogCard(dogProps: Dog) {
   return (
-    <Card className="w-[300px] overflow-hidden p-0">
+    <Card className="w-[250px] overflow-hidden p-0">
       <CardContent className="grid p-0">
         <div className="relative">
           <Button

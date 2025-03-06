@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { SearchResult } from "@/lib/definitions";
 import { Dog } from "@/lib/definitions";
 import { DogCard } from "./dog-card";
+import { GridDisplay } from "./grid-display";
 
 export function DogResults({ currentPage }: { currentPage: number }) {
   const router = useRouter();
@@ -32,11 +33,13 @@ export function DogResults({ currentPage }: { currentPage: number }) {
   }, [router, currentPage]);
   return (
     <div>
-      {dogs.map((dog: Dog, index: number) => (
-        <div key={index}>
-          <DogCard {...dog} />
-        </div>
-      ))}
+      <GridDisplay>
+        {dogs.map((dog: Dog, index: number) => (
+          <div key={index}>
+            <DogCard {...dog} />
+          </div>
+        ))}
+      </GridDisplay>
     </div>
   );
 }
