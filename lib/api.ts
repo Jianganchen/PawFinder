@@ -1,5 +1,6 @@
 const BASE_URL = "https://frontend-take-home-service.fetch.com";
 
+// ** POST /auth/login **
 export async function loginUser(name: string, email: string) {
   try {
     const res = await fetch(`${BASE_URL}/auth/login`, {
@@ -16,6 +17,23 @@ export async function loginUser(name: string, email: string) {
     return res;
   } catch (error) {
     console.error("Error logging in:", error);
+    return null;
+  }
+}
+
+// ** GET /dogs **
+export async function getAllDogs() {
+  try {
+    const res = await fetch(`${BASE_URL}/dogs/search`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("Not Authenticated");
+
+    return res.json();
+  } catch (error) {
+    console.error("Error Fetching dogs:", error);
     return null;
   }
 }

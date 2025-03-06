@@ -9,11 +9,7 @@ import { useState } from "react";
 import { loginUser } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
-
-interface User {
-  name: string;
-  email: string;
-}
+import { User } from "@/lib/definitions";
 
 export function LoginForm({
   className,
