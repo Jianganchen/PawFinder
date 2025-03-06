@@ -10,6 +10,7 @@ import { loginUser } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
 import { User } from "@/lib/definitions";
+import { useUser } from "./user-provider";
 
 export function LoginForm({
   className,
@@ -17,6 +18,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
   const [user, setUser] = useState<User>({ name: "", email: "" });
+  const { setProviderUser } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -26,6 +28,8 @@ export function LoginForm({
     const response = await loginUser(user.name, user.email);
 
     if (response) {
+      setProviderUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
       router.push("/");
     }
 

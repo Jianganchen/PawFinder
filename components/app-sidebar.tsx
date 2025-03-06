@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
@@ -12,6 +14,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
+import { useUser } from "./user-provider";
 
 // This is sample data.
 const data = {
@@ -150,6 +153,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { providerUser } = useUser();
+
+  if (!providerUser) return;
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -176,7 +183,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="p-1">
-          <NavUser user={data.user} />
+          <NavUser
+            user={{
+              ...providerUser,
+              avatar: "https://avatar.iran.liara.run/public",
+            }}
+          />
         </div>
       </SidebarFooter>
       <SidebarRail />
