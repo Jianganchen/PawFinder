@@ -7,7 +7,7 @@ import { getAllDogs } from "@/lib/api";
 
 export default function Home() {
   const router = useRouter();
-  const [dogs, setDogs] = useState<Dog[]>([]);
+  // const [dogs, setDogs] = useState<Dog[]>([]);
 
   useEffect(() => {
     const fetchDogs = async () => {
@@ -17,6 +17,7 @@ export default function Home() {
         console.log(data);
         // setDogs(data);
       } catch (error) {
+        console.log(error);
         router.push("/login");
       }
     };
