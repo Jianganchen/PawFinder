@@ -23,6 +23,27 @@ export async function loginUser(name: string, email: string) {
   }
 }
 
+// ** POST /auth/logout **
+export async function logoutUser() {
+  try {
+    console.log("Logging out...");
+    const res = await fetch(`${BASE_URL}/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("logout failed");
+
+    return res;
+  } catch (error) {
+    console.error("Error logging out:", error);
+    return null;
+  }
+}
+
 // ** GET /dogs/search?from={pageNumber} **
 // To save the trouble of finding the response.next and response.prev
 // Here I just calculate the "from" value using pageNumber:

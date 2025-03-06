@@ -25,6 +25,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useState } from "react";
+import { logoutUser } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 
 export function NavUser({
   user,
@@ -36,6 +40,21 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const response = await logoutUser();
+
+    if (response) {
+      router.push("/login");
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <SidebarMenu>
@@ -98,7 +117,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
