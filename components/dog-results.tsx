@@ -32,7 +32,7 @@ export function DogResults({ currentPage }: { currentPage: number }) {
     fetchDogs();
   }, [router, currentPage]);
   return (
-    <div>
+    <div className="flex justify-center">
       <GridDisplay>
         {dogs.map((dog: Dog, index: number) => (
           <div key={index}>
