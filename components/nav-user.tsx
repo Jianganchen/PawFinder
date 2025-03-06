@@ -5,6 +5,7 @@ import {
   Bell,
   ChevronsUpDown,
   CreditCard,
+  Loader,
   LogOut,
   Sparkles,
 } from "lucide-react";
@@ -28,7 +29,6 @@ import {
 import { useState } from "react";
 import { logoutUser } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
 
 export function NavUser({
   user,
@@ -119,7 +119,14 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
-              Log out
+              {isLoading ? (
+                <span className="inline-flex items-center gap-1">
+                  <Loader className="animate-spin" />
+                  Loading...
+                </span>
+              ) : (
+                "Log out"
+              )}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
