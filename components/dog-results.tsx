@@ -7,6 +7,7 @@ import { SearchResult } from "@/lib/definitions";
 import { Dog } from "@/lib/definitions";
 import { DogCard } from "./dog-card";
 import { GridDisplay } from "./grid-display";
+import { PaginationRow } from "./pagination-row";
 
 export function DogResults({ currentPage }: { currentPage: number }) {
   const router = useRouter();
@@ -32,7 +33,7 @@ export function DogResults({ currentPage }: { currentPage: number }) {
     fetchDogs();
   }, [router, currentPage]);
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col justify-center">
       <GridDisplay>
         {dogs.map((dog: Dog, index: number) => (
           <div key={index}>
@@ -40,6 +41,8 @@ export function DogResults({ currentPage }: { currentPage: number }) {
           </div>
         ))}
       </GridDisplay>
+      <div className="py-3" />
+      <PaginationRow />
     </div>
   );
 }
