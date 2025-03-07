@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
 import { useUser } from "./user-provider";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Breeds } from "@/lib/definitions";
 import { getAllBreeds } from "@/lib/api";
 
@@ -90,7 +90,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain breeds={breeds} />
+        <Suspense>
+          <NavMain breeds={breeds} />
+        </Suspense>
       </SidebarContent>
       <SidebarFooter>
         <div className="p-1">
