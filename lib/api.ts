@@ -49,7 +49,7 @@ export async function logoutUser() {
 export async function getAllDogsByPageNumber(pageNumber: number) {
   try {
     const res = await fetch(
-      `${BASE_URL}/dogs/search?from=${(pageNumber - 1) * 25}`,
+      `${BASE_URL}/dogs/search?from=${(pageNumber - 1) * 25}&sort=breed:asc`,
       {
         method: "GET",
         credentials: "include",
