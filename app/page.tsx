@@ -12,12 +12,14 @@ export default async function Home(props: {
     page?: string;
     breed?: string;
     sort?: string;
+    zipcode?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const currentPage = Number(searchParams?.page) || 1;
-  const currentBreed = searchParams?.breed || "";
+  const currentBreed = searchParams?.breed || undefined;
   const currentSort = searchParams?.sort || "breed:asc";
+  const currentZipcode = searchParams?.zipcode || undefined;
 
   return (
     <div>
@@ -33,6 +35,7 @@ export default async function Home(props: {
               currentPage={currentPage}
               currentBreed={currentBreed}
               currentSort={currentSort}
+              currentZipcode={currentZipcode}
             />
           </div>
         </SidebarInset>

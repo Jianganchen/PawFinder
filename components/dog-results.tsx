@@ -14,10 +14,12 @@ export function DogResults({
   currentPage,
   currentBreed,
   currentSort,
+  currentZipcode,
 }: {
   currentPage: number;
-  currentBreed: string;
+  currentBreed: string | undefined;
   currentSort: string;
+  currentZipcode: string | undefined;
 }) {
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
@@ -33,6 +35,7 @@ export function DogResults({
           size: 25,
           breed: currentBreed,
           sort: currentSort,
+          zipCode: currentZipcode,
         });
         if (!data) throw new Error("Not Authenticated");
 
@@ -50,7 +53,7 @@ export function DogResults({
     };
 
     fetchDogs();
-  }, [router, currentPage, currentBreed, currentSort]);
+  }, [router, currentPage, currentBreed, currentSort, currentZipcode]);
 
   if (isLoading) return <DogResultSkeleton />;
 
