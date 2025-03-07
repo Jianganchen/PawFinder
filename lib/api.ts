@@ -85,3 +85,20 @@ export async function getDogsById(IDs: string[]) {
     return null;
   }
 }
+
+// ** GET /dogs/breeds **
+export async function getAllBreeds() {
+  try {
+    const res = await fetch(`${BASE_URL}/dogs/breeds`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("Get breeds failed");
+
+    return res.json();
+  } catch (error) {
+    console.error("Error Fetching breeds:", error);
+    return null;
+  }
+}

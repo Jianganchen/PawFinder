@@ -1,13 +1,13 @@
 // This file contains type definitions for all the data used in this app.
 // It describes the shape of the data, and what data type each property should accept.
 
-// User Types
+// User Type
 export interface User {
   name: string;
   email: string;
 }
 
-// Dos Types
+// Dos Type
 export interface Dog {
   id: string;
   img: string;
@@ -16,6 +16,9 @@ export interface Dog {
   zip_code: string;
   breed: string;
 }
+
+// Breed Type
+export type Breeds = string[];
 
 // Search Return Type
 export interface SearchResult {
