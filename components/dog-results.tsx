@@ -1,16 +1,22 @@
 "use client";
 
-import { getAllDogsByPageNumber, getDogsById } from "@/lib/api";
+import { getDogsBySearch, getDogsById } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SearchResult } from "@/lib/definitions";
+import { SearchResult, SearchParams } from "@/lib/definitions";
 import { Dog } from "@/lib/definitions";
 import { DogCard } from "./dog-card";
 import { GridDisplay } from "./grid-display";
 import { PaginationRow } from "./pagination-row";
 import { DogResultSkeleton } from "./skeletons";
 
-export function DogResults({ currentPage }: { currentPage: number }) {
+export function DogResults({
+  currentPage,
+  currentBreed,
+}: {
+  currentPage: number;
+  currentBreed: string;
+}) {
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -20,7 +26,11 @@ export function DogResults({ currentPage }: { currentPage: number }) {
       try {
         setIsLoading(true);
 
-        const data: SearchResult = await getAllDogsByPageNumber(currentPage);
+        const data: SearchResult = await getDogsBySearch({
+          currentPage: currentPage,
+          size: 25,
+          breed: currentBreed,
+        });
         if (!data) throw new Error("Not Authenticated");
 
         const response = await getDogsById(data.resultIds);
@@ -37,7 +47,7 @@ export function DogResults({ currentPage }: { currentPage: number }) {
     };
 
     fetchDogs();
-  }, [router, currentPage]);
+  }, [router, currentPage, currentBreed]);
 
   if (isLoading) return <DogResultSkeleton />;
 

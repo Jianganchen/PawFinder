@@ -20,6 +20,18 @@ export interface Dog {
 // Breed Type
 export type Breeds = string[];
 
+// Search Parameters Type
+export interface SearchParams {
+  ageMax?: number;
+  ageMin?: number;
+  breed?: string;
+  from?: number;
+  size: number;
+  sortDirection?: "asc" | "desc";
+  sortField?: "breed" | "name" | "age";
+  zipCode?: string;
+}
+
 // Search Return Type
 export interface SearchResult {
   resultIds: string[];

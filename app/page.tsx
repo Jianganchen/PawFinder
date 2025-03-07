@@ -10,10 +10,12 @@ import { DogResults } from "@/components/dog-results";
 export default async function Home(props: {
   searchParams?: Promise<{
     page?: string;
+    breed?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const currentPage = Number(searchParams?.page) || 1;
+  const currentBreed = searchParams?.breed || "";
 
   return (
     <div>
@@ -25,7 +27,7 @@ export default async function Home(props: {
             <Separator orientation="vertical" className="mr-2 h-4" />
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <DogResults currentPage={currentPage} />
+            <DogResults currentPage={currentPage} currentBreed={currentBreed} />
           </div>
         </SidebarInset>
       </SidebarProvider>

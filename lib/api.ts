@@ -1,3 +1,5 @@
+import { SearchParams } from "./definitions";
+
 const BASE_URL = "https://frontend-take-home-service.fetch.com";
 
 // ** POST /auth/login **
@@ -42,19 +44,41 @@ export async function logoutUser() {
   }
 }
 
-// ** GET /dogs/search?from={pageNumber} **
+// ** GET /dogs/search?{queryParams} **
 // To save the trouble of finding the response.next and response.prev
 // Here I just calculate the "from" value using pageNumber:
 // from = (pageNumber - 1) * 25
-export async function getAllDogsByPageNumber(pageNumber: number) {
+export async function getDogsBySearch(searchParams: SearchParams) {
+  const {
+    ageMax,
+    ageMin,
+    breed,
+    currentPage,
+    size,
+    sortDirection,
+    sortField,
+    zipCode,
+  } = searchParams;
+
+  const queryParams = [
+    ageMax && `ageMax=${ageMax}`,
+    ageMin && `ageMin=${ageMin}`,
+    currentPage && `from=${(currentPage - 1) * 25}`,
+    size && `size=${size}`,
+    sortField && sortDirection && `sort=${sortField}:${sortDirection}`,
+    breed && `breeds[]=${breed}`,
+    zipCode && `zipCodes[]=${zipCode}`,
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  const route = `${queryParams ? `?${queryParams}` : ""}`;
+
   try {
-    const res = await fetch(
-      `${BASE_URL}/dogs/search?from=${(pageNumber - 1) * 25}&sort=breed:asc`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
+    const res = await fetch(`${BASE_URL}/dogs/search${route}`, {
+      method: "GET",
+      credentials: "include",
+    });
 
     if (!res.ok) throw new Error("Not Authenticated");
 

@@ -12,9 +12,24 @@ import {
 import { Breeds } from "@/lib/definitions";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export function NavMain({ breeds }: { breeds: Breeds }) {
   const [breedSelection, setBreedSelection] = useState<string>("");
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  // const currentPage = searchParams.get("sort") || "";
+
+  const createBreedURL = (currentBreed: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("breed", currentBreed);
+    // console.log("Pathname:", pathname);
+    // console.log("currentBreed:", currentBreed);
+
+    return `${pathname}?${params.toString()}`;
+  };
 
   // useEffect(() => {
   //   console.log(breedSelection);
@@ -36,7 +51,9 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
           </SelectContent>
         </Select>
         <div className="flex flex-row justify-between w-full">
-          <Button variant="outline">Apply Filter</Button>
+          <Link href={createBreedURL(breedSelection)}>
+            <Button variant="outline">Apply Filter</Button>
+          </Link>
           <Button variant="outline">Clear Filter</Button>
         </div>
       </SidebarMenu>
