@@ -49,23 +49,15 @@ export async function logoutUser() {
 // Here I just calculate the "from" value using pageNumber:
 // from = (pageNumber - 1) * 25
 export async function getDogsBySearch(searchParams: SearchParams) {
-  const {
-    ageMax,
-    ageMin,
-    breed,
-    currentPage,
-    size,
-    sortDirection,
-    sortField,
-    zipCode,
-  } = searchParams;
+  const { ageMax, ageMin, breed, currentPage, size, sort, zipCode } =
+    searchParams;
 
   const queryParams = [
     ageMax && `ageMax=${ageMax}`,
     ageMin && `ageMin=${ageMin}`,
     currentPage && `from=${(currentPage - 1) * 25}`,
     size && `size=${size}`,
-    sortField && sortDirection && `sort=${sortField}:${sortDirection}`,
+    sort && `sort=${sort}`,
     breed && `breeds[]=${breed}`,
     zipCode && `zipCodes[]=${zipCode}`,
   ]

@@ -13,9 +13,11 @@ import { DogResultSkeleton } from "./skeletons";
 export function DogResults({
   currentPage,
   currentBreed,
+  currentSort,
 }: {
   currentPage: number;
   currentBreed: string;
+  currentSort: string;
 }) {
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
@@ -30,6 +32,7 @@ export function DogResults({
           currentPage: currentPage,
           size: 25,
           breed: currentBreed,
+          sort: currentSort,
         });
         if (!data) throw new Error("Not Authenticated");
 
@@ -47,7 +50,7 @@ export function DogResults({
     };
 
     fetchDogs();
-  }, [router, currentPage, currentBreed]);
+  }, [router, currentPage, currentBreed, currentSort]);
 
   if (isLoading) return <DogResultSkeleton />;
 

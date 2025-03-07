@@ -11,11 +11,13 @@ export default async function Home(props: {
   searchParams?: Promise<{
     page?: string;
     breed?: string;
+    sort?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
   const currentPage = Number(searchParams?.page) || 1;
   const currentBreed = searchParams?.breed || "";
+  const currentSort = searchParams?.sort || "breed:asc";
 
   return (
     <div>
@@ -27,7 +29,11 @@ export default async function Home(props: {
             <Separator orientation="vertical" className="mr-2 h-4" />
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4">
-            <DogResults currentPage={currentPage} currentBreed={currentBreed} />
+            <DogResults
+              currentPage={currentPage}
+              currentBreed={currentBreed}
+              currentSort={currentSort}
+            />
           </div>
         </SidebarInset>
       </SidebarProvider>

@@ -25,12 +25,14 @@ export interface SearchParams {
   ageMax?: number;
   ageMin?: number;
   breed?: string;
-  from?: number;
+  currentPage?: number;
   size: number;
-  sortDirection?: "asc" | "desc";
-  sortField?: "breed" | "name" | "age";
+  sort: string;
   zipCode?: string;
 }
+
+// Sort Field Type
+export type sortField = "breed" | "name" | "age";
 
 // Search Return Type
 export interface SearchResult {
