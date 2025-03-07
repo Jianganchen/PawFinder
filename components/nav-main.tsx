@@ -48,6 +48,17 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     return `${pathname}?${params.toString()}`;
   };
 
+  const createEmptyQueryURL = () => {
+    return "/";
+  };
+
+  const handleClearFilter = () => {
+    setBreedSelection("");
+    setSortFieldSelection("breed");
+    setZipcode("");
+    setToggleSortAscend(false);
+  };
+
   // useEffect(() => {
   //   console.log(zipcode);
   // }, [zipcode]);
@@ -119,7 +130,11 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
           >
             <Button variant="outline">Apply Filter</Button>
           </Link>
-          <Button variant="outline">Clear Filter</Button>
+          <Link href={createEmptyQueryURL()}>
+            <Button variant="outline" onClick={handleClearFilter}>
+              Clear Filter
+            </Button>
+          </Link>
         </div>
       </SidebarMenu>
     </SidebarGroup>
