@@ -6,7 +6,7 @@ import { Skeleton } from "./ui/skeleton";
 
 export function DogCard(dogProps: Dog) {
   return (
-    <Card className="min-w-[250px] h-[300px] overflow-hidden p-0">
+    <Card className="min-w-[250px] max-w-[340px] h-[300px] overflow-hidden p-0">
       <CardContent className="grid p-0">
         <div className="relative">
           <Button
