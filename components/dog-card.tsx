@@ -6,7 +6,7 @@ import { Skeleton } from "./ui/skeleton";
 
 export function DogCard(dogProps: Dog) {
   return (
-    <Card className="w-[210px] h-[339px] overflow-hidden p-0">
+    <Card className="min-w-[250px] h-[300px] overflow-hidden p-0">
       <CardContent className="grid p-0">
         <div className="relative">
           <Button
@@ -26,7 +26,7 @@ export function DogCard(dogProps: Dog) {
             {dogProps.name}
           </h3>
           <p className="text-sm text-gray-500">
-            {dogProps.breed} | Age: {dogProps.age}
+            {dogProps.breed} | Age: {dogProps.age} | {dogProps.zip_code}
           </p>
         </div>
       </CardContent>
@@ -37,7 +37,7 @@ export function DogCard(dogProps: Dog) {
 
 export function DogCardSkeleton() {
   return (
-    <Card className="w-[210px] h-[339px] overflow-hidden p-0">
+    <Card className="min-w-[250px] h-[300px] overflow-hidden p-0">
       <CardContent className="grid p-0">
         <div className="relative">
           <Skeleton className="w-full h-[200px] object-cover rounded-none" />
