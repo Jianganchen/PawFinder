@@ -3,7 +3,7 @@
 import { getDogsBySearch, getDogsById } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SearchResult, SearchParams } from "@/lib/definitions";
+import { SearchResult } from "@/lib/definitions";
 import { Dog } from "@/lib/definitions";
 import { DogCard } from "./dog-card";
 import { GridDisplay } from "./grid-display";
