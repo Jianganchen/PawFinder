@@ -4,6 +4,7 @@ import { Dog } from "@/lib/definitions";
 import { Heart } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
 import { useFavoriteDogs } from "./context/favorite-dogs-provider";
+import { toast } from "react-hot-toast";
 
 export function DogCard(dogProps: Dog) {
   const { favoriteDogs, addToFavorites, removeFromFavorites } =
@@ -11,7 +12,13 @@ export function DogCard(dogProps: Dog) {
   const isFavorite = favoriteDogs.some((fav) => fav.id === dogProps.id);
 
   const handleToggleLikeDog = () => {
-    isFavorite ? removeFromFavorites(dogProps.id) : addToFavorites(dogProps);
+    if (isFavorite) {
+      toast(`Removed ${dogProps.name} from favorites.`);
+      removeFromFavorites(dogProps.id);
+    } else {
+      toast(`Added ${dogProps.name} to favorites! `, { icon: "🐶" });
+      addToFavorites(dogProps);
+    }
   };
 
   return (
