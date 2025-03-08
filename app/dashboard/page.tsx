@@ -1,5 +1,3 @@
-import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { DogResults } from "@/components/dog-results";
 
 export default async function Dashboard(props: {
