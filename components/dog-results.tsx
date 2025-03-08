@@ -71,7 +71,7 @@ export function DogResults({
       <GridDisplay>
         {dogs.map((dog: Dog, index: number) => (
           <div key={index}>
-            <DogCard {...dog} />
+            <DogCard dogProps={dog} isReadOnly={false} />
           </div>
         ))}
       </GridDisplay>

@@ -55,7 +55,7 @@ export default function Page() {
           We just found a great match for you!
         </DialogDescription>
         <div className="flex justify-center">
-          {bestDog && <DogCard {...bestDog} />}
+          {bestDog && <DogCard dogProps={bestDog} isReadOnly={true} />}
         </div>
       </DialogContent>
       <div className="container mx-auto p-6">
@@ -79,7 +79,7 @@ export default function Page() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {favoriteDogs.map((dog) => (
-              <DogCard key={dog.id} {...dog} />
+              <DogCard key={dog.id} dogProps={dog} isReadOnly={false} />
             ))}
           </div>
         )}

@@ -6,17 +6,26 @@ import { Skeleton } from "./ui/skeleton";
 import { useFavoriteDogs } from "./context/favorite-dogs-provider";
 import { toast } from "react-hot-toast";
 
-export function DogCard(dogProps: Dog) {
+export function DogCard({
+  dogProps,
+  isReadOnly,
+}: {
+  dogProps: Dog;
+  isReadOnly: boolean;
+}) {
   const { favoriteDogs, addToFavorites, removeFromFavorites } =
     useFavoriteDogs();
   const isFavorite = favoriteDogs.some((fav) => fav.id === dogProps.id);
 
   const handleToggleLikeDog = () => {
     if (isFavorite) {
-      toast(`Removed ${dogProps.name} from favorites.`);
+      toast(`Removed ${dogProps.name} from favorites.`, { duration: 1000 });
       removeFromFavorites(dogProps.id);
     } else {
-      toast(`Added ${dogProps.name} to favorites! `, { icon: "🐶" });
+      toast(`Added ${dogProps.name} to favorites! `, {
+        icon: "🐶",
+        duration: 1000,
+      });
       addToFavorites(dogProps);
     }
   };
@@ -25,15 +34,19 @@ export function DogCard(dogProps: Dog) {
     <Card className="min-w-[250px] max-w-[340px] h-[300px] overflow-hidden p-0">
       <CardContent className="grid p-0">
         <div className="relative">
-          <Button
-            className="absolute z-10 top-1 right-1 rounded-full"
-            variant="secondary"
-            onClick={handleToggleLikeDog}
-          >
-            <Heart
-              className={`w-6 h-6 text-red-300 ${isFavorite && "fill-red-300"}`}
-            />
-          </Button>
+          {!isReadOnly && (
+            <Button
+              className="absolute z-10 top-1 right-1 rounded-full"
+              variant="secondary"
+              onClick={handleToggleLikeDog}
+            >
+              <Heart
+                className={`w-6 h-6 text-red-300 ${
+                  isFavorite && "fill-red-300"
+                }`}
+              />
+            </Button>
+          )}
           <img
             src={dogProps.img}
             alt={dogProps.name}
