@@ -30,7 +30,7 @@ export function LoginForm({
     if (response) {
       setProviderUser(user);
       localStorage.setItem("user", JSON.stringify(user));
-      router.push("/");
+      router.push("/dashboard");
     }
 
     setIsLoading(false);

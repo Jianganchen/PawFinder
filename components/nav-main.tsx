@@ -49,7 +49,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
   };
 
   const createEmptyQueryURL = () => {
-    return "/";
+    return "/dashboard";
   };
 
   const handleClearFilter = () => {

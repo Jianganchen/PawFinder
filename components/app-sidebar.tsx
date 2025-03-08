@@ -24,22 +24,6 @@ const data = {
     email: "m@example.com",
     avatar: "https://avatar.iran.liara.run/public",
   },
-  navMain: [
-    {
-      title: "Getting Started",
-      url: "#",
-      items: [
-        {
-          title: "Installation",
-          url: "#",
-        },
-        {
-          title: "Project Structure",
-          url: "#",
-        },
-      ],
-    },
-  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -74,7 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/dashboard">
                 <div className=" text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center">
                   <img src="/favicon.ico" alt="icon" className="size-8" />
                 </div>

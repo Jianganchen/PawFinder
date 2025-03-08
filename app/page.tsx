@@ -1,45 +1,71 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { DogResults } from "@/components/dog-results";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default async function Home(props: {
-  searchParams?: Promise<{
-    page?: string;
-    breed?: string;
-    sort?: string;
-    zipcode?: string;
-  }>;
-}) {
-  const searchParams = await props.searchParams;
-  const currentPage = Number(searchParams?.page) || 1;
-  const currentBreed = searchParams?.breed || undefined;
-  const currentSort = searchParams?.sort || "breed:asc";
-  const currentZipcode = searchParams?.zipcode || undefined;
-
+export default function HomePage() {
   return (
-    <div>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-          </header>
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <DogResults
-              currentPage={currentPage}
-              currentBreed={currentBreed}
-              currentSort={currentSort}
-              currentZipcode={currentZipcode}
-            />
+    <div className="flex flex-col min-h-screen">
+      {/* ✅ Navbar */}
+      <nav className="flex items-center justify-between p-6 bg-white shadow-md">
+        <div className="flex flex-row">
+          <div className=" text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center">
+            <img src="/favicon.ico" alt="icon" className="size-8" />
           </div>
-        </SidebarInset>
-      </SidebarProvider>
+          <div className="flex flex-row gap-0 leading-none ml-2">
+            <span className="font-bold text-4xl font-sans">Paw</span>
+            <span className="font-bold text-4xl font-sans text-[#d99e82]">
+              Finder
+            </span>
+          </div>
+        </div>
+        <Link href="/login">
+          <Button className="text-base" size="lg" variant="outline">
+            Login
+          </Button>
+        </Link>
+      </nav>
+
+      {/* ✅ Hero Section */}
+      <section
+        className="relative flex flex-col items-center justify-center h-screen bg-cover bg-center text-white"
+        style={{ backgroundImage: "url('/bg.jpg')" }}
+      >
+        <div className=" ml-auto mr-40">
+          <div className="flex flex-row gap-0 leading-none ml-2">
+            <span className="font-bold text-7xl font-sans text-[#d99e82]">
+              Find&nbsp;
+            </span>
+            <span className="font-bold text-7xl font-sans">Your New</span>
+          </div>
+          <div className="flex flex-row gap-0 leading-none ml-2">
+            <span className="font-bold text-7xl font-sans text-black">
+              Paw&nbsp;
+            </span>
+            <span className="font-bold text-7xl font-sans">Friend Today</span>
+          </div>
+          <p className="ml-3 mt-4 text-lg text-gray-200">
+            Thousands of pets looking for a loving home.
+          </p>
+        </div>
+      </section>
+
+      {/* ✅ Call to Action */}
+      <section className="py-16 bg-white text-center text-black">
+        <h3 className="text-3xl font-semibold text-black">
+          Find Your Best Friend Today
+        </h3>
+        <div className="pt-5">
+          <Link href="/login">
+            <Button className="text-base" size="lg" variant="outline">
+              Get Started
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* ✅ Footer */}
+      <footer className="py-6 text-center text-gray-600">
+        &copy; 2025 PetFinder - All Rights Reserved
+      </footer>
     </div>
   );
 }

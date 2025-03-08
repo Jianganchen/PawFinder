@@ -21,7 +21,7 @@ export default function NotFound() {
           <div className="flex flex-col items-center gap-4 p-4 pt-30">
             <img width={500} src="/404.png" alt="404" />
             <Button variant="outline">
-              <Link href="/">Return Home</Link>
+              <Link href="/dashboard">Return Home</Link>
             </Button>
           </div>
         </SidebarInset>
