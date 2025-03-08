@@ -41,3 +41,8 @@ export interface SearchResult {
   prev?: string;
   total: number;
 }
+
+// Match Return Type
+export interface MatchResult {
+  match: string;
+}

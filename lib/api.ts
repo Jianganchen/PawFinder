@@ -118,3 +118,24 @@ export async function getAllBreeds() {
     return null;
   }
 }
+
+// ** POST /dogs/match **
+export async function generateMatch(dogIds: string[]) {
+  try {
+    const res = await fetch(`${BASE_URL}/dogs/match`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dogIds),
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("generate match failed.");
+
+    return res.json();
+  } catch (error) {
+    console.error("Error generating match:", error);
+    return null;
+  }
+}
