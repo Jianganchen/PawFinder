@@ -10,7 +10,7 @@ import { loginUser } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
 import { User } from "@/lib/definitions";
-import { useUser } from "./user-provider";
+import { useUser } from "./context/user-provider";
 
 export function LoginForm({
   className,

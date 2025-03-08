@@ -3,8 +3,17 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Dog } from "@/lib/definitions";
 import { Heart } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
+import { useFavoriteDogs } from "./context/favorite-dogs-provider";
 
 export function DogCard(dogProps: Dog) {
+  const { favoriteDogs, addToFavorites, removeFromFavorites } =
+    useFavoriteDogs();
+  const isFavorite = favoriteDogs.some((fav) => fav.id === dogProps.id);
+
+  const handleToggleLikeDog = () => {
+    isFavorite ? removeFromFavorites(dogProps.id) : addToFavorites(dogProps);
+  };
+
   return (
     <Card className="min-w-[250px] max-w-[340px] h-[300px] overflow-hidden p-0">
       <CardContent className="grid p-0">
@@ -12,8 +21,11 @@ export function DogCard(dogProps: Dog) {
           <Button
             className="absolute z-10 top-1 right-1 rounded-full"
             variant="secondary"
+            onClick={handleToggleLikeDog}
           >
-            <Heart className="w-6 h-6 text-red-500" />
+            <Heart
+              className={`w-6 h-6 text-red-300 ${isFavorite && "fill-red-300"}`}
+            />
           </Button>
           <img
             src={dogProps.img}

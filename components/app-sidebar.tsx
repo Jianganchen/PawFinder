@@ -12,7 +12,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavUser } from "./nav-user";
-import { useUser } from "./user-provider";
+import { useUser } from "./context/user-provider";
 import { Suspense, useEffect, useState } from "react";
 import { Breeds } from "@/lib/definitions";
 import { getAllBreeds } from "@/lib/api";
