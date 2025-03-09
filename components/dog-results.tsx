@@ -9,7 +9,7 @@ import { DogCard } from "./dog-card";
 import { GridDisplay } from "./grid-display";
 import { PaginationRow } from "./pagination-row";
 import { DogResultSkeleton } from "./skeletons";
-// import { NoDogFound } from "./no-dog-found";
+import { NoDogFound } from "./no-dog-found";
 
 export function DogResults({
   currentPage,
@@ -29,10 +29,12 @@ export function DogResults({
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  // const [noDogFound, setNoDogFound] = useState<boolean>(false);
+  const [noDogFound, setNoDogFound] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDogs = async () => {
+      setNoDogFound(false);
+
       try {
         const data: SearchResult = await getDogsBySearch({
           currentPage: currentPage,
@@ -45,9 +47,9 @@ export function DogResults({
         });
         if (!data) throw new Error("Not Authenticated");
 
-        // if (data.total === 0) {
-        //   setNoDogFound(true);
-        // }
+        if (data.total === 0) {
+          setNoDogFound(true);
+        }
 
         const response = await getDogsById(data.resultIds);
         if (!response) throw new Error("error getting result dog ids");
@@ -76,7 +78,7 @@ export function DogResults({
 
   if (isLoading) return <DogResultSkeleton />;
 
-  // if (noDogFound) return <NoDogFound />;
+  if (noDogFound) return <NoDogFound />;
 
   return (
     <div className="flex flex-col justify-center">
