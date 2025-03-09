@@ -17,7 +17,6 @@ import Link from "next/link";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 
 const sortFields = ["breed", "name", "age"];
