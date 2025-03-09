@@ -2,6 +2,20 @@
 
 ![README image](/public/readme1.png)
 
+[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)](#)
+[![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](#)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)](#)
+[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff)](#)
+[![npm](https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=fff)](#)
+[![HTML](https://img.shields.io/badge/HTML-%23E34F26.svg?logo=html5&logoColor=white)](#)
+[![CSS](https://img.shields.io/badge/CSS-1572B6?logo=css3&logoColor=fff)](#)
+[![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff)](#)
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?logo=figma&logoColor=white)](#)
+[![Unsplash](https://img.shields.io/badge/Unsplash-000000?logo=Unsplash&logoColor=white)](#)
+[![Arc](https://img.shields.io/badge/Arc-FCBFBD?logo=arc&logoColor=000)](#)
+[![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white)](#)
+
 This is a website to help a dog-lover search through a database of shelter dogs, with the hope of finding a lucky dog a new home!
 
 See the design document [here](https://frontend-take-home.fetch.com/).
