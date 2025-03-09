@@ -1,4 +1,6 @@
-# 🐕 PawFinder
+<center><h1>🐕 PawFinder</h1></center>
+
+![README image](/public/readme1.png)
 
 This is a website to help a dog-lover search through a database of shelter dogs, with the hope of finding a lucky dog a new home!
 
