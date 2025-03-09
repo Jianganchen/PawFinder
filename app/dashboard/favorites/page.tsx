@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Confetti from "react-confetti";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { GridDisplay } from "@/components/grid-display";
 
 export default function Page() {
   const { width, height } = useWindowSize();
@@ -121,11 +122,11 @@ export default function Page() {
             No favorite dogs yet. Start liking some!
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <GridDisplay>
             {favoriteDogs.map((dog) => (
               <DogCard key={dog.id} dogProps={dog} isReadOnly={false} />
             ))}
-          </div>
+          </GridDisplay>
         )}
       </div>
     </Dialog>
