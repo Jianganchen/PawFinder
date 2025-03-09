@@ -5,6 +5,7 @@ import { DogCard } from "@/components/dog-card";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -91,6 +92,13 @@ export default function Page() {
             <div className="flex justify-center">
               {bestDog && <DogCard dogProps={bestDog} isReadOnly={true} />}
             </div>
+            <DialogClose asChild>
+              <div className="pt-3 ">
+                <Button type="submit" size="lg" variant="outline">
+                  Great!
+                </Button>
+              </div>
+            </DialogClose>
           </>
         )}
       </DialogContent>
