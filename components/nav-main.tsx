@@ -17,6 +17,8 @@ import Link from "next/link";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
+import { Slider } from "@/components/ui/slider";
 
 const sortFields = ["breed", "name", "age"];
 
@@ -28,6 +30,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     useState<sortField>("breed");
   const [zipcode, setZipcode] = useState<string>("");
   const [toggleSortAscend, setToggleSortAscend] = useState<boolean>(false);
+  const [selectAge, setSelectAge] = useState<[number, number]>([0, 25]);
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -37,13 +40,16 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     currentBreed: string,
     toggleSortAscend: boolean,
     sortFieldSelection: sortField,
-    zipcode: string
+    zipcode: string,
+    selectAge: [number, number]
   ) => {
     const params = new URLSearchParams(searchParams);
     params.set("breed", currentBreed);
     const sortQuery = toggleSortAscend ? "desc" : "asc";
     params.set("sort", `${sortFieldSelection}:${sortQuery}`);
     params.set("zipcode", zipcode);
+    params.set("ageMin", selectAge[0].toString());
+    params.set("ageMax", selectAge[1].toString());
 
     return `${pathname}?${params.toString()}`;
   };
@@ -57,6 +63,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     setSortFieldSelection("breed");
     setZipcode("");
     setToggleSortAscend(false);
+    setSelectAge([0, 25]);
   };
 
   // useEffect(() => {
@@ -91,8 +98,22 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
             Invalid zipcode
           </p>
         )}
-        <p className="font-medium">Sort through:</p>
 
+        <p className="font-medium">Age range:</p>
+        <Slider
+          defaultValue={[0, 25]}
+          value={selectAge}
+          onValueChange={(value) => setSelectAge([value[0], value[1]])}
+          max={25}
+        />
+        <p className="mt-2 text-sm text-gray-500">
+          Selected age range:
+          <span className="ml-1 font-semibold text-gray-900 dark:text-gray-50">
+            {selectAge[0]}~{selectAge[1]}
+          </span>
+        </p>
+
+        <p className="font-medium">Sort through:</p>
         <Select
           value={sortFieldSelection}
           onValueChange={(value: sortField) => setSortFieldSelection(value)}
@@ -125,7 +146,8 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
               breedSelection,
               toggleSortAscend,
               sortFieldSelection,
-              zipcode
+              zipcode,
+              selectAge
             )}
           >
             <Button variant="outline">Apply Filter</Button>

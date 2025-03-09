@@ -16,11 +16,15 @@ export function DogResults({
   currentBreed,
   currentSort,
   currentZipcode,
+  currentAgeMin,
+  currentAgeMax,
 }: {
   currentPage: number;
   currentBreed: string | undefined;
   currentSort: string;
   currentZipcode: string | undefined;
+  currentAgeMin: number | undefined;
+  currentAgeMax: number | undefined;
 }) {
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
@@ -36,6 +40,8 @@ export function DogResults({
           breed: currentBreed,
           sort: currentSort,
           zipCode: currentZipcode,
+          ageMin: currentAgeMin,
+          ageMax: currentAgeMax,
         });
         if (!data) throw new Error("Not Authenticated");
 
@@ -58,7 +64,15 @@ export function DogResults({
     };
 
     fetchDogs();
-  }, [router, currentPage, currentBreed, currentSort, currentZipcode]);
+  }, [
+    router,
+    currentPage,
+    currentBreed,
+    currentSort,
+    currentZipcode,
+    currentAgeMin,
+    currentAgeMax,
+  ]);
 
   if (isLoading) return <DogResultSkeleton />;
 
