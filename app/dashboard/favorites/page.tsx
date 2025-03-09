@@ -21,9 +21,6 @@ export default function Page() {
   const favoriteDogsIDs: string[] = favoriteDogs.map((dog) => dog.id);
   const [bestDog, setBestDog] = useState<Dog | null>(null);
 
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleGenerateMatch = async () => {
     try {
       const matchResult: MatchResult = await generateMatch(favoriteDogsIDs);
@@ -42,7 +39,9 @@ export default function Page() {
       const dog = await bestDog.json();
 
       setBestDog(dog[0]);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
