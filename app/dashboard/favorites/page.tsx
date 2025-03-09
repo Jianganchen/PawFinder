@@ -13,19 +13,34 @@ import {
 } from "@/components/ui/dialog";
 import { generateMatch, getDogsById } from "@/lib/api";
 import { Dog, MatchResult } from "@/lib/definitions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Confetti from "react-confetti";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export default function Page() {
+  const { width, height } = useWindowSize();
+
   const { favoriteDogs } = useFavoriteDogs();
   const favoriteDogsIDs: string[] = favoriteDogs.map((dog) => dog.id);
   const [bestDog, setBestDog] = useState<Dog | null>(null);
+
+  const [error, setError] = useState<boolean>(false);
+  const [isMatch, setIsMatch] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (bestDog) {
+      setIsMatch(true);
+      setTimeout(() => setIsMatch(false), 4000);
+    }
+  }, [bestDog]);
 
   const handleGenerateMatch = async () => {
     try {
       const matchResult: MatchResult = await generateMatch(favoriteDogsIDs);
 
       if (!matchResult) {
+        setError(true);
         toast.error("Error generating a match");
         throw new Error("Error generating a match");
       }
@@ -46,16 +61,38 @@ export default function Page() {
 
   return (
     <Dialog>
+      {isMatch && (
+        <Confetti
+          width={width!}
+          height={height!}
+          numberOfPieces={300}
+          initialVelocityX={10}
+          gravity={1}
+        />
+      )}
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>We have a Match!</DialogTitle>
-        </DialogHeader>
-        <DialogDescription>
-          We just found a great match for you!
-        </DialogDescription>
-        <div className="flex justify-center">
-          {bestDog && <DogCard dogProps={bestDog} isReadOnly={true} />}
-        </div>
+        {error ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>Failed to generate a Match</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              You need to like some dogs to find a match!
+            </DialogDescription>
+          </>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle>We have a Match!</DialogTitle>
+            </DialogHeader>
+            <DialogDescription>
+              We just found a great match for you!
+            </DialogDescription>
+            <div className="flex justify-center">
+              {bestDog && <DogCard dogProps={bestDog} isReadOnly={true} />}
+            </div>
+          </>
+        )}
       </DialogContent>
       <div className="container mx-auto p-6">
         <div className="flex flex-row justify-between">
