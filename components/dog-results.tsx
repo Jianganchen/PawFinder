@@ -24,14 +24,12 @@ export function DogResults({
 }) {
   const router = useRouter();
   const [dogs, setDogs] = useState<Dog[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   // const [noDogFound, setNoDogFound] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDogs = async () => {
       try {
-        setIsLoading(true);
-
         const data: SearchResult = await getDogsBySearch({
           currentPage: currentPage,
           size: 25,
