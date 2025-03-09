@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { Button } from "./ui/button";
-
 export function NoDogFound() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen pb-50">
