@@ -1,5 +1,8 @@
 import { SearchParams } from "./definitions";
 
+// A time out constant to handle server idle error
+const TIME_OUT = 6000;
+
 const BASE_URL = "https://frontend-take-home-service.fetch.com";
 
 // ** POST /auth/login **
@@ -48,7 +51,13 @@ export async function logoutUser() {
 // To save the trouble of finding the response.next and response.prev
 // Here I just calculate the "from" value using pageNumber:
 // from = (pageNumber - 1) * 25
-export async function getDogsBySearch(searchParams: SearchParams) {
+export async function getDogsBySearch(
+  searchParams: SearchParams,
+  timeout = TIME_OUT
+) {
+  const controller = new AbortController();
+  const newTimeoutId = setTimeout(() => controller.abort(), timeout);
+
   const { ageMax, ageMin, breed, currentPage, size, sort, zipCode } =
     searchParams;
 
@@ -71,6 +80,8 @@ export async function getDogsBySearch(searchParams: SearchParams) {
       method: "GET",
       credentials: "include",
     });
+
+    clearTimeout(newTimeoutId);
 
     if (!res.ok) throw new Error("Not Authenticated");
 
