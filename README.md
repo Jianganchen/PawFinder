@@ -1,4 +1,4 @@
-<center><h1>🐕 PawFinder</h1></center>
+<h1 align="center">🐕 PawFinder</h1>
 
 ![README image](/public/readme1.png)
 
