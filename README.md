@@ -17,23 +17,23 @@
 [![Arc](https://img.shields.io/badge/Arc-FCBFBD?logo=arc&logoColor=000)](#)
 [![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white)](#)
 
-This is a website to help a dog-lover search through a database of shelter dogs, with the hope of finding a lucky dog a new home!
+* This is a website to help a dog-lover search through a database of shelter dogs, with the hope of finding a lucky dog a new home!
 
-See the design document [here](https://frontend-take-home.fetch.com/).
+* See the design document [here](https://frontend-take-home.fetch.com/).
 
-The document is written and distributed by [fetch](https://fetch.com/).
+* The document is written and distributed by [fetch](https://fetch.com/).
 
 # Getting Started
 
-Here are three options for you to see the final result of this amazing web app!
+* Here are three options for you to see the final result of this amazing web app!
 
 ## Visit the website on PC
 
-See the website live here: [🐕PawFinder](https://paw-finder-sigma.vercel.app/)
+* See the website live here: [🐕PawFinder](https://paw-finder-sigma.vercel.app/)
 
 ## Browse on your phone
 
-If you're using _Safari_ or _Chrome_ on phone, go to **Settings** and search for _Safari_(or _Chrome_), then turn off **Prevent Cross-Site Tracking**, and you will see the amazing ✨responsive design✨ on your mobile device!
+* If you're using _Safari_ or _Chrome_ on phone, go to **Settings** and search for _Safari_(or _Chrome_), then turn off **Prevent Cross-Site Tracking**, and you will see the amazing ✨responsive design✨ on your mobile device!
 
 _Because in this project we have a different domain for backend, Disabling cross-site cookies would prevent you from logging into the website._
 
@@ -41,7 +41,7 @@ _Because in this project we have a different domain for backend, Disabling cross
 
 **1. Clone the repository**
 
-To begin, clone the repository from GitHub, using the following command:
+* To begin, clone the repository from GitHub, using the following command:
 
 ```
 git clone https://github.com/Jianganchen/PawFinder.git
@@ -49,7 +49,7 @@ git clone https://github.com/Jianganchen/PawFinder.git
 
 **2. Install the dependencies**
 
-To install the dependencies, run this:
+* To install the dependencies, run this:
 
 ```
 npm install
@@ -57,7 +57,7 @@ npm install
 
 **3. Launch the server**
 
-run the development server:
+* run the development server:
 
 ```bash
 npm run dev
@@ -69,7 +69,26 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+# File Structure
+
+* I used [Next.js](https://nextjs.org/)'s app router in this project. Basically there are three main pages: landing page, dashboard page and favorites page. Favorites page lives inside dashboard page because they sahre a same sidebar. I also have a not-found page for all the unwanted routes, so feel free to try it out!
+
+```
+.
+├── app/                 # root route & landing page
+│   ├── dashboard/       # dashboard page & sidebar
+│   │   └── favorites    # favorite dogs page
+│   └── login            # login page
+├── components/          # all the reusable components
+│   ├── context          # favorite dogs & user provider
+│   └── ui               # UI library
+├── hooks                # customized hooks
+├── lib                  # apis & utils & TypeScript definitions
+└── public               # pngs & svgs
+
+```
 
 # Under Construction
 
