@@ -25,7 +25,11 @@
 
 # Getting Started
 
-* Here are three options for you to see the final result of this amazing web app!
+* Here are four options for you to see the final result of this amazing web app!
+
+## Video Demostration
+
+* Click [here](https://www.youtube.com/watch?v=1WQyzI8pmzE) to see the video demonstration
 
 ## Visit the website on PC
 
