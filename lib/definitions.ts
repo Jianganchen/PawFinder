@@ -30,6 +30,7 @@ export interface SearchParams {
   sort: string;
   zipCode?: string;
   state?: string;
+  city?: string;
 }
 
 // Sort Field Type

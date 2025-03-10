@@ -58,16 +58,34 @@ export async function getDogsBySearch(
   const controller = new AbortController();
   const newTimeoutId = setTimeout(() => controller.abort(), timeout);
 
-  const { ageMax, ageMin, breed, currentPage, size, sort, zipCode, state } =
-    searchParams;
+  const {
+    ageMax,
+    ageMin,
+    breed,
+    currentPage,
+    size,
+    sort,
+    zipCode,
+    state,
+    city,
+  } = searchParams;
 
-  let zipCodes: string[] = [];
+  let zipCodesFromStates: string[] = [];
+  let zipCodesFromCity: string[] = [];
 
   if (state) {
     const res = await searchFromState(state);
 
     if (res) {
-      zipCodes = res.results.map((location) => location.zip_code);
+      zipCodesFromStates = res.results.map((location) => location.zip_code);
+    }
+  }
+
+  if (city) {
+    const res = await searchFromCity(city);
+
+    if (res) {
+      zipCodesFromCity = res.results.map((location) => location.zip_code);
     }
   }
 
@@ -79,7 +97,10 @@ export async function getDogsBySearch(
     sort && `sort=${sort}`,
     breed && `breeds[]=${breed}`,
     zipCode && `zipCodes[]=${zipCode}`,
-    zipCodes.length > 0 && zipCodes.map((z) => `zipCodes[]=${z}`).join("&"),
+    zipCodesFromStates.length > 0 &&
+      zipCodesFromStates.map((z) => `zipCodes[]=${z}`).join("&"),
+    zipCodesFromCity.length > 0 &&
+      zipCodesFromCity.map((z) => `zipCodes[]=${z}`).join("&"),
   ]
     .filter(Boolean)
     .join("&");
@@ -163,6 +184,7 @@ export async function generateMatch(dogIds: string[]) {
 }
 
 // ** POST /locations/search **
+// body: {states: [state]}
 export async function searchFromState(
   state: string
 ): Promise<LocationSearchResult | null> {
@@ -176,11 +198,35 @@ export async function searchFromState(
       credentials: "include",
     });
 
-    if (!res.ok) throw new Error("get zipcodes failed.");
+    if (!res.ok) throw new Error("get zipcodes from states failed.");
 
     return res.json();
   } catch (error) {
-    console.error("Error getting zipcodes:", error);
+    console.error("Error getting zipcodes from states:", error);
+    return null;
+  }
+}
+
+// ** POST /locations/search **
+// body: {city: city}
+export async function searchFromCity(
+  city: string
+): Promise<LocationSearchResult | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/locations/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ city: city }),
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("get zipcodes from city failed.");
+
+    return res.json();
+  } catch (error) {
+    console.error("Error getting zipcodes from city:", error);
     return null;
   }
 }

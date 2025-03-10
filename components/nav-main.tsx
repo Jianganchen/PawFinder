@@ -12,7 +12,7 @@ import {
 import { Breeds, sortField } from "@/lib/definitions";
 import { states } from "@/lib/definitions";
 import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Switch } from "./ui/switch";
@@ -27,6 +27,7 @@ const zipcodeRegex = /^(\d{5})?$/;
 export function NavMain({ breeds }: { breeds: Breeds }) {
   const [breedSelection, setBreedSelection] = useState<string>("");
   const [stateSelection, setStateSelection] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   const [sortFieldSelection, setSortFieldSelection] =
     useState<sortField>("breed");
   const [zipcode, setZipcode] = useState<string>("");
@@ -40,17 +41,19 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
   const createQueryURL = (
     currentBreed: string,
     currentState: string,
+    currentCity: string,
     toggleSortAscend: boolean,
     sortFieldSelection: sortField,
     zipcode: string,
     selectAge: [number, number]
   ) => {
     const params = new URLSearchParams(searchParams);
-    params.set("breed", currentBreed);
-    params.set("state", currentState);
+    currentBreed && params.set("breed", currentBreed);
+    currentState && params.set("state", currentState);
+    currentCity && params.set("city", currentCity);
     const sortQuery = toggleSortAscend ? "desc" : "asc";
     params.set("sort", `${sortFieldSelection}:${sortQuery}`);
-    params.set("zipcode", zipcode);
+    zipcode && params.set("zipcode", zipcode);
     params.set("ageMin", selectAge[0].toString());
     params.set("ageMax", selectAge[1].toString());
 
@@ -67,11 +70,9 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     setZipcode("");
     setToggleSortAscend(false);
     setSelectAge([0, 25]);
+    setCity("");
+    setStateSelection("");
   };
-
-  // useEffect(() => {
-  //   console.log(stateSelection);
-  // }, [stateSelection]);
 
   return (
     <SidebarGroup>
@@ -105,6 +106,15 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
             ))}
           </SelectContent>
         </Select>
+
+        {/* City Input */}
+        <p className="font-medium">City:</p>
+        <Input
+          type="text"
+          placeholder="Enter a city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
 
         {/* Zipcode Input */}
         <p className="font-medium">Zip-code:</p>
@@ -170,6 +180,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
             href={createQueryURL(
               breedSelection,
               stateSelection,
+              city,
               toggleSortAscend,
               sortFieldSelection,
               zipcode,
