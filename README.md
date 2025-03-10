@@ -90,8 +90,24 @@ bun dev
 
 ```
 
-# Under Construction
+# Features
 
-- [ ] Add some animation to match result generation
-- [ ] Use the locations, ageMin, ageMax etc.
-- [ ] Video demonstration!
+### Design
+- I put a lot of effort into the **UI/UX design** of this website, because I do think design is a significant part of front-end engineering!
+- I studied 10+ different pet websites and chose this modern and simplistic style for PawFinder, which I think goes pretty well.
+
+### Functionalities
+- You can **filter** dogs by breeds, states and city they live in, zipcodes, age and name etc. All the functionalities in the documentation are implemented.
+- You can view all the dogs with **pagination**, and what's important is if you refresh the page you wouldn't be redirected back to page 1, because we don't want users to lose their progress while browsing through cute puppies.
+- You can click the **like button** on any dog that you see on the on page, and later on you can generate a match according to the dogs you chose.
+
+### User Experience
+- This web app **fully supports** mobile device! Try to visit the link on your phone and see what's different.
+- You may have noticed the choice I made in designing the buttons. For example, the silder for age selection, a toggle button for sorting order, a sidebar that can be toggled etc.
+
+### Error Handling
+- If you try to visit /dashboard without logging in, you would be redirected to login page.
+- If you visit any unlisted route, you would see a not-found page.
+- If you accidentally set a filter where no dog satisfies any of the conditions, you will see a no-dogs-found page.
+- If you try to generate a match without liking any dogs, it wouldn't let you.
+- If you type in the incorrect zip-code, it would give you a warning.
