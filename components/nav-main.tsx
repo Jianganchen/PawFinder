@@ -10,8 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Breeds, sortField } from "@/lib/definitions";
+import { states } from "@/lib/definitions";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Switch } from "./ui/switch";
@@ -25,6 +26,7 @@ const zipcodeRegex = /^(\d{5})?$/;
 
 export function NavMain({ breeds }: { breeds: Breeds }) {
   const [breedSelection, setBreedSelection] = useState<string>("");
+  const [stateSelection, setStateSelection] = useState<string>("");
   const [sortFieldSelection, setSortFieldSelection] =
     useState<sortField>("breed");
   const [zipcode, setZipcode] = useState<string>("");
@@ -37,6 +39,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
 
   const createQueryURL = (
     currentBreed: string,
+    currentState: string,
     toggleSortAscend: boolean,
     sortFieldSelection: sortField,
     zipcode: string,
@@ -44,6 +47,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
   ) => {
     const params = new URLSearchParams(searchParams);
     params.set("breed", currentBreed);
+    params.set("state", currentState);
     const sortQuery = toggleSortAscend ? "desc" : "asc";
     params.set("sort", `${sortFieldSelection}:${sortQuery}`);
     params.set("zipcode", zipcode);
@@ -66,12 +70,13 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
   };
 
   // useEffect(() => {
-  //   console.log(zipcode);
-  // }, [zipcode]);
+  //   console.log(stateSelection);
+  // }, [stateSelection]);
 
   return (
     <SidebarGroup>
       <SidebarMenu className="items-center gap-4">
+        {/* Breed Selection */}
         <p className="font-medium">Breed:</p>
         <Select value={breedSelection} onValueChange={setBreedSelection}>
           <SelectTrigger className="w-full">
@@ -85,6 +90,23 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
             ))}
           </SelectContent>
         </Select>
+
+        {/* State Selection */}
+        <p className="font-medium">State:</p>
+        <Select value={stateSelection} onValueChange={setStateSelection}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select a state" />
+          </SelectTrigger>
+          <SelectContent>
+            {states.map((state, index) => (
+              <SelectItem key={index} value={state.value}>
+                {state.value}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Zipcode Input */}
         <p className="font-medium">Zip-code:</p>
         <Input
           type="text"
@@ -98,6 +120,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
           </p>
         )}
 
+        {/* Age range Slider */}
         <p className="font-medium">Age range:</p>
         <Slider
           defaultValue={[0, 25]}
@@ -112,6 +135,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
           </span>
         </p>
 
+        {/* Sorting Field */}
         <p className="font-medium">Sort through:</p>
         <Select
           value={sortFieldSelection}
@@ -128,6 +152,8 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
             ))}
           </SelectContent>
         </Select>
+
+        {/* Sort Direction */}
         <p className="font-medium">Sort direction:</p>
 
         <div className="flex justify-between w-full px-3">
@@ -143,6 +169,7 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
           <Link
             href={createQueryURL(
               breedSelection,
+              stateSelection,
               toggleSortAscend,
               sortFieldSelection,
               zipcode,

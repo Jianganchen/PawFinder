@@ -8,6 +8,7 @@ export default async function Dashboard(props: {
     zipcode?: string;
     ageMin?: string;
     ageMax?: string;
+    state?: string;
   }>;
 }) {
   const searchParams = await props.searchParams;
@@ -17,6 +18,7 @@ export default async function Dashboard(props: {
   const currentZipcode = searchParams?.zipcode || undefined;
   const currentAgeMin = Number(searchParams?.ageMin) || undefined;
   const currentAgeMax = Number(searchParams?.ageMax) || undefined;
+  const currentState = searchParams?.state || undefined;
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
@@ -27,6 +29,7 @@ export default async function Dashboard(props: {
         currentZipcode={currentZipcode}
         currentAgeMin={currentAgeMin}
         currentAgeMax={currentAgeMax}
+        currentState={currentState}
       />
     </div>
   );

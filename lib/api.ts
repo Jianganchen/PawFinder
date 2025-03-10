@@ -1,4 +1,4 @@
-import { SearchParams } from "./definitions";
+import { LocationSearchResult, SearchParams } from "./definitions";
 
 // A time out constant to handle server idle error
 const TIME_OUT = 6000;
@@ -58,8 +58,18 @@ export async function getDogsBySearch(
   const controller = new AbortController();
   const newTimeoutId = setTimeout(() => controller.abort(), timeout);
 
-  const { ageMax, ageMin, breed, currentPage, size, sort, zipCode } =
+  const { ageMax, ageMin, breed, currentPage, size, sort, zipCode, state } =
     searchParams;
+
+  let zipCodes: string[] = [];
+
+  if (state) {
+    const res = await searchFromState(state);
+
+    if (res) {
+      zipCodes = res.results.map((location) => location.zip_code);
+    }
+  }
 
   const queryParams = [
     ageMax && `ageMax=${ageMax}`,
@@ -69,6 +79,7 @@ export async function getDogsBySearch(
     sort && `sort=${sort}`,
     breed && `breeds[]=${breed}`,
     zipCode && `zipCodes[]=${zipCode}`,
+    zipCodes.length > 0 && zipCodes.map((z) => `zipCodes[]=${z}`).join("&"),
   ]
     .filter(Boolean)
     .join("&");
@@ -147,6 +158,29 @@ export async function generateMatch(dogIds: string[]) {
     return res.json();
   } catch (error) {
     console.error("Error generating match:", error);
+    return null;
+  }
+}
+
+// ** POST /locations/search **
+export async function searchFromState(
+  state: string
+): Promise<LocationSearchResult | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/locations/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ states: [state] }),
+      credentials: "include",
+    });
+
+    if (!res.ok) throw new Error("get zipcodes failed.");
+
+    return res.json();
+  } catch (error) {
+    console.error("Error getting zipcodes:", error);
     return null;
   }
 }
