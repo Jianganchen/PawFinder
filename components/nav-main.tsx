@@ -48,12 +48,12 @@ export function NavMain({ breeds }: { breeds: Breeds }) {
     selectAge: [number, number]
   ) => {
     const params = new URLSearchParams(searchParams);
-    currentBreed && params.set("breed", currentBreed);
-    currentState && params.set("state", currentState);
-    currentCity && params.set("city", currentCity);
+    if (currentBreed) params.set("breed", currentBreed);
+    if (currentState) params.set("state", currentState);
+    if (currentCity) params.set("city", currentCity);
     const sortQuery = toggleSortAscend ? "desc" : "asc";
     params.set("sort", `${sortFieldSelection}:${sortQuery}`);
-    zipcode && params.set("zipcode", zipcode);
+    if (zipcode) params.set("zipcode", zipcode);
     params.set("ageMin", selectAge[0].toString());
     params.set("ageMax", selectAge[1].toString());
 
